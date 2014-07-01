@@ -202,19 +202,7 @@
   // Determine whether all of the elements match a truth test.
   // Aliased as `all`.
   _.every = _.all = function(obj, predicate, context) {
-    if (obj == null) return true;
-    predicate = lookupIterator(predicate, context);
-    var length = obj.length;
-    var index, currentKey, keys;
-    if (length !== +length) {
-      keys = _.keys(obj);
-      length = keys.length;
-    }
-    for (index = 0; index < length; index++) {
-      currentKey = keys ? keys[index] : index;
-      if (!predicate(obj[currentKey], currentKey, obj)) return false;
-    }
-    return true;
+    return !_.some(obj, _.negate(lookupIterator(predicate)), context);
   };
 
   // Determine if at least one element in the object matches a truth test.
